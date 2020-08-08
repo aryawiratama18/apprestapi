@@ -22,7 +22,7 @@ exports.tampilsemuadatamahasiswa = function (req, res) {
 // menampilkan semua data mahasiswa berdasarkan id
 exports.tampilberdasarkanid = function (req, res) {
     let id = req.params.id;
-    connection.query("SELECT * FROM mahasiswa WHERE id = ?", id,
+    connection.query("SELECT * FROM mahasiswa WHERE id = ?", [id],
         function (error, rows, fields) {
             if (error) {
                 console.log(error);
@@ -61,6 +61,19 @@ exports.ubahdatamahasiswa = function (req, res) {
                 console.log(error);
             } else {
                 response.ok("Berhasil mengubah data", res);
+            }
+        });
+}
+
+exports.hapusdatamahasiswa = function (req, res) {
+    var id = req.body.id;
+
+    connection.query("DELETE FROM mahasiswa WHERE id=?", [id],
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error);
+            } else {
+                response.ok("Berhasil menghapus data", res);
             }
         });
 }
